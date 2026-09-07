@@ -1,0 +1,47 @@
+<%- include('partials-head') %>
+
+<h1>Pedidos</h1>
+
+<table>
+  <tr>
+    <th>ID</th><th>Cliente</th><th>Producto</th><th>Cantidad</th><th>Fecha</th><th></th>
+  </tr>
+  <% pedidos.forEach(p => { %>
+  <tr>
+    <td><%= p.id %></td>
+    <td><%= p.cliente %></td>
+    <td><%= p.producto %></td>
+    <td><%= p.cantidad %></td>
+    <td><%= p.fecha %></td>
+    <td>
+      <a href="/pedidos/editar/<%= p.id %>"><button type="button">Editar</button></a>
+      <form class="inline" method="POST" action="/pedidos/eliminar/<%= p.id %>">
+        <button class="danger" type="submit">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+
+<div class="form-box">
+  <h3>Agregar pedido</h3>
+  <form method="POST" action="/pedidos">
+    <select name="id_cliente" required>
+      <option value="">-- Cliente --</option>
+      <% clientes.forEach(c => { %>
+        <option value="<%= c.id %>"><%= c.nombre %></option>
+      <% }) %>
+    </select>
+    <select name="id_producto" required>
+      <option value="">-- Producto --</option>
+      <% productos.forEach(p => { %>
+        <option value="<%= p.id %>"><%= p.nombre %></option>
+      <% }) %>
+    </select>
+    <input type="number" name="cantidad" placeholder="Cantidad" required>
+    <button type="submit">Guardar</button>
+  </form>
+</div>
+
+</body>
+</html>

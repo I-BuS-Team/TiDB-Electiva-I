@@ -1,0 +1,37 @@
+<%- include('partials-head') %>
+
+<h1>Clientes</h1>
+
+<table>
+  <tr>
+    <th>ID</th><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Fecha registro</th><th></th>
+  </tr>
+  <% clientes.forEach(c => { %>
+  <tr>
+    <td><%= c.id %></td>
+    <td><%= c.nombre %></td>
+    <td><%= c.email %></td>
+    <td><%= c.telefono %></td>
+    <td><%= c.fecha_registro %></td>
+    <td>
+      <a href="/clientes/editar/<%= c.id %>"><button type="button">Editar</button></a>
+      <form class="inline" method="POST" action="/clientes/eliminar/<%= c.id %>">
+        <button class="danger" type="submit">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+
+<div class="form-box">
+  <h3>Agregar cliente</h3>
+  <form method="POST" action="/clientes">
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="email" name="email" placeholder="Email">
+    <input type="text" name="telefono" placeholder="Teléfono">
+    <button type="submit">Guardar</button>
+  </form>
+</div>
+
+</body>
+</html>

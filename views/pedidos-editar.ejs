@@ -1,0 +1,24 @@
+<%- include('partials-head') %>
+
+<h1>Editar pedido</h1>
+
+<div class="form-box">
+  <form method="POST" action="/pedidos/editar/<%= pedido.id %>">
+    <select name="id_cliente" required>
+      <% clientes.forEach(c => { %>
+        <option value="<%= c.id %>" <%= c.id === pedido.id_cliente ? 'selected' : '' %>><%= c.nombre %></option>
+      <% }) %>
+    </select><br>
+    <select name="id_producto" required>
+      <% productos.forEach(p => { %>
+        <option value="<%= p.id %>" <%= p.id === pedido.id_producto ? 'selected' : '' %>><%= p.nombre %></option>
+      <% }) %>
+    </select><br>
+    <input type="number" name="cantidad" value="<%= pedido.cantidad %>" placeholder="Cantidad" required><br>
+    <button type="submit">Guardar cambios</button>
+    <a href="/pedidos"><button type="button">Cancelar</button></a>
+  </form>
+</div>
+
+</body>
+</html>
