@@ -1,5 +1,7 @@
 # Tienda App
 
+Link del ejercicio desplegado: https://tienda-app-eight.vercel.app/
+
 Aplicación web básica en Node.js + Express para probar una base de datos TiDB Cloud (compatible con MySQL) con 3 tablas: clientes, productos y pedidos.
 
 ## Integrantes
