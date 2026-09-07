@@ -16,7 +16,7 @@ Aplicación web básica en Node.js + Express para probar una base de datos TiDB 
    npm install
    ```
 
-3. Crea un archivo llamado `.env` en la raíz del proyecto (puedes basarte en `.env.example` como referencia de los nombres de las variables).
+3. Crea un archivo llamado `.env` en la raíz del proyecto.
 4. Los datos reales de conexión (host, usuario, contraseña, etc.) y el certificado `ca-cert.pem` se entregan aparte, en un documento Word junto con este repositorio, ya que corresponden a la misma base de datos compartida usada para las pruebas. Coloca el `ca-cert.pem` recibido en la raíz del proyecto y completa el `.env` con los valores indicados en ese documento, siguiendo este formato:
 
    ```
@@ -41,9 +41,9 @@ Para crear y verificar las tablas (`clientes`, `productos`, `pedidos`) se utiliz
 
 ### Datos de conexión
 
-Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver sección de Instalación), siguiendo el formato de `.env.example`.
+Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver el documento Word para copiar los parametros necesarios)
 
-El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio (junto con el archivo `.env` con los valores reales) para que el profesor pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
+El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio para que el profesor pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
 
 ## Ejecutar la aplicación
 
