@@ -16,9 +16,8 @@ Aplicación web básica en Node.js + Express para probar una base de datos TiDB 
    npm install
    ```
 
-3. Crea el archivo `.env`.
-4. Descarga el certificado CA desde TiDB Cloud (pestaña "Connect" de tu cluster, enlace "CA cert") y guárdalo en la carpeta del proyecto como `ca-cert.pem`.
-5. Completa el archivo `.env` con tus datos de conexión de TiDB Cloud:
+3. Crea un archivo llamado `.env` en la raíz del proyecto (puedes basarte en `.env.example` como referencia de los nombres de las variables).
+4. Los datos reales de conexión (host, usuario, contraseña, etc.) y el certificado `ca-cert.pem` se entregan aparte, en un documento Word junto con este repositorio, ya que corresponden a la misma base de datos compartida usada para las pruebas. Coloca el `ca-cert.pem` recibido en la raíz del proyecto y completa el `.env` con los valores indicados en ese documento, siguiendo este formato:
 
    ```
    DB_HOST=tu-host.tidbcloud.com
@@ -29,6 +28,22 @@ Aplicación web básica en Node.js + Express para probar una base de datos TiDB 
    DB_CA_PATH=./ca-cert.pem
    PORT=3000
    ```
+
+## Evidencia de creación de la base de datos
+
+La base de datos fue creada en **TiDB Cloud** (plan gratuito Starter), en un clúster llamado `db-prueba-electiva-I`, activo en la región de São Paulo (AWS):
+
+![Cluster activo en TiDB Cloud](docs/evidencia-cluster-tidb.png)
+
+Para crear y verificar las tablas (`clientes`, `productos`, `pedidos`) se utilizó **MySQL Workbench**, conectado directamente al clúster de TiDB Cloud mediante conexión SSL. La siguiente captura muestra los scripts `CREATE TABLE` e `INSERT` ejecutados, junto con el resultado de una consulta `SELECT * FROM clientes`:
+
+![Tablas creadas y consultadas desde Workbench](docs/evidencia-tablas-workbench.png)
+
+### Datos de conexión
+
+Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver sección de Instalación), siguiendo el formato de `.env.example`.
+
+El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio (junto con el archivo `.env` con los valores reales) para que el profesor pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
 
 ## Ejecutar la aplicación
 
