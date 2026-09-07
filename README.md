@@ -24,8 +24,8 @@ Aplicación web básica en Node.js + Express para probar una base de datos TiDB 
    npm install
    ```
 
-3. Crea un archivo llamado `.env` en la raíz del proyecto (puedes basarte en `.env.example` como referencia de los nombres de las variables).
-4. Los datos reales de conexión (host, usuario, contraseña, etc.) y el certificado `ca-cert.pem` se entregan aparte, en un documento Word junto con este repositorio, ya que corresponden a la misma base de datos compartida usada para las pruebas. Coloca el `ca-cert.pem` recibido en la raíz del proyecto y completa el `.env` con los valores indicados en ese documento, siguiendo este formato:
+3. Crea un archivo llamado `.env` en la raíz del proyecto.
+4. Los datos reales de conexión (host, usuario, contraseña, etc.) y el certificado `ca-cert.pem` se entregan aparte, ya que corresponden a la misma base de datos compartida usada para las pruebas. Coloca el `ca-cert.pem` recibido en la raíz del proyecto y completa el `.env` con los valores indicados en ese documento, siguiendo este formato:
 
    ```
    DB_HOST=tu-host.tidbcloud.com
@@ -49,20 +49,15 @@ Para crear y verificar las tablas (`clientes`, `productos`, `pedidos`) se utiliz
 
 ### Datos de conexión
 
-Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver sección de Instalación), siguiendo el formato de `.env.example`.
+Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver documento Word, donde se encuentran los parametros necesarios).
 
-El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio (junto con el archivo `.env` con los valores reales) para que el profesor pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
+El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio (junto con el archivo word con los valores reales) para que el profesor pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
 
 ## Estructura del proyecto
 
-Así debe quedar organizada la carpeta del proyecto una vez instalado (nota que `node_modules`, `.env` y `ca-cert.pem` no se incluyen en el repositorio, pero sí deben existir localmente para que la app funcione):
+Así debe quedar organizada la carpeta del proyecto:
 
 ![Estructura de carpetas del proyecto](docs/evidencia-estructura-proyecto.png)
-
-
-## Dificultades durante el desarrollo
-
-Uno de los retos principales estuvo relacionado directamente con la base de datos: TiDB Cloud exige que toda conexión se haga obligatoriamente por SSL, usando un certificado CA (`ca-cert.pem`) proporcionado por el propio servicio. Al principio la conexión desde la aplicación fallaba porque no se estaba cargando correctamente ese certificado. Además, al intentar desplegar la aplicación en Vercel, el archivo `ca-cert.pem` no podía subirse al repositorio (por ser un archivo sensible ligado a la conexión), por lo que fue necesario adaptar el código para leer el contenido del certificado desde una variable de entorno (`DB_CA_CONTENT`) en lugar de depender de un archivo físico, permitiendo así que la app se conectara a la base de datos tanto en local como en producción sin comprometer las credenciales.
 
 ## Ejecutar la aplicación
 
@@ -77,3 +72,7 @@ Luego abre en el navegador: http://localhost:3000
 - **Clientes**: ver, agregar y eliminar clientes.
 - **Productos**: ver, agregar y eliminar productos.
 - **Pedidos**: ver, agregar y eliminar pedidos, relacionando cliente y producto.
+
+## Dificultades durante el desarrollo
+
+Uno de los retos principales estuvo relacionado directamente con la base de datos: TiDB Cloud exige que toda conexión se haga obligatoriamente por SSL, usando un certificado CA (`ca-cert.pem`) proporcionado por el propio servicio. Al principio la conexión desde la aplicación fallaba porque no se estaba cargando correctamente ese certificado. Además, al intentar desplegar la aplicación en Vercel, el archivo `ca-cert.pem` no podía subirse al repositorio (por ser un archivo sensible ligado a la conexión), por lo que fue necesario adaptar el código para leer el contenido del certificado desde una variable de entorno (`DB_CA_CONTENT`) en lugar de depender de un archivo físico, permitiendo así que la app se conectara a la base de datos tanto en local como en producción sin comprometer las credenciales.
