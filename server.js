@@ -52,7 +52,13 @@ app.post('/clientes', async (req, res) => {
 });
 
 app.post('/clientes/eliminar/:id', async (req, res) => {
-  await pool.query('DELETE FROM clientes WHERE id = ?', [req.params.id]);
+  try {
+    // Primero eliminamos los pedidos asociados al cliente para evitar error de Clave Foránea
+    await pool.query('DELETE FROM pedidos WHERE id_cliente = ?', [req.params.id]);
+    await pool.query('DELETE FROM clientes WHERE id = ?', [req.params.id]);
+  } catch (error) {
+    console.error('Error al eliminar cliente:', error.message);
+  }
   res.redirect('/clientes');
 });
 
@@ -87,7 +93,13 @@ app.post('/productos', async (req, res) => {
 });
 
 app.post('/productos/eliminar/:id', async (req, res) => {
-  await pool.query('DELETE FROM productos WHERE id = ?', [req.params.id]);
+  try {
+    // Primero eliminamos los pedidos asociados al producto para evitar error de Clave Foránea
+    await pool.query('DELETE FROM pedidos WHERE id_producto = ?', [req.params.id]);
+    await pool.query('DELETE FROM productos WHERE id = ?', [req.params.id]);
+  } catch (error) {
+    console.error('Error al eliminar producto:', error.message);
+  }
   res.redirect('/productos');
 });
 
@@ -131,7 +143,11 @@ app.post('/pedidos', async (req, res) => {
 });
 
 app.post('/pedidos/eliminar/:id', async (req, res) => {
-  await pool.query('DELETE FROM pedidos WHERE id = ?', [req.params.id]);
+  try {
+    await pool.query('DELETE FROM pedidos WHERE id = ?', [req.params.id]);
+  } catch (error) {
+    console.error('Error al eliminar pedido:', error.message);
+  }
   res.redirect('/pedidos');
 });
 
