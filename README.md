@@ -51,9 +51,9 @@ Para crear y verificar las tablas (`clientes`, `productos`, `pedidos`) se utiliz
 
 ### Datos de conexión
 
-Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver documento Word, donde se encuentran los parametros necesarios).
+Los parámetros de conexión (host, puerto, usuario, contraseña y nombre de la base de datos) no se incluyen directamente en este código por motivos de seguridad. Se configuran mediante variables de entorno en el archivo `.env` (ver documento PDF, donde se encuentran los parametros necesarios).
 
-El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio (junto con el archivo word con los valores reales) para que el profesor pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
+El certificado `ca-cert.pem`, requerido por TiDB Cloud para la conexión SSL, se adjunta por fuera del repositorio (junto con el archivo PDF con los valores reales) para que el docente pueda ejecutar y probar el proyecto sin necesidad de generar sus propias credenciales.
 
 ## Estructura del proyecto
 
