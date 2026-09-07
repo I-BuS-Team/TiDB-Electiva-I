@@ -87,11 +87,13 @@ app.get('/productos', async (req, res) => {
 
 app.post('/productos', async (req, res) => {
   const { nombre, precio, stock } = req.body;
+  const precioVal = Math.max(0, parseFloat(precio) || 0);
+  const stockVal = Math.max(0, parseInt(stock) || 0);
   const [[{ maxId }]] = await pool.query('SELECT COALESCE(MAX(id), 0) AS maxId FROM productos');
   const nextId = maxId + 1;
   await pool.query(
     'INSERT INTO productos (id, nombre, precio, stock) VALUES (?, ?, ?, ?)',
-    [nextId, nombre, precio, stock]
+    [nextId, nombre, precioVal, stockVal]
   );
   res.redirect('/productos');
 });
@@ -115,9 +117,11 @@ app.get('/productos/editar/:id', async (req, res) => {
 
 app.post('/productos/editar/:id', async (req, res) => {
   const { nombre, precio, stock } = req.body;
+  const precioVal = Math.max(0, parseFloat(precio) || 0);
+  const stockVal = Math.max(0, parseInt(stock) || 0);
   await pool.query(
     'UPDATE productos SET nombre = ?, precio = ?, stock = ? WHERE id = ?',
-    [nombre, precio, stock, req.params.id]
+    [nombre, precioVal, stockVal, req.params.id]
   );
   res.redirect('/productos');
 });
@@ -139,11 +143,12 @@ app.get('/pedidos', async (req, res) => {
 
 app.post('/pedidos', async (req, res) => {
   const { id_cliente, id_producto, cantidad } = req.body;
+  const cantidadVal = Math.max(1, parseInt(cantidad) || 1);
   const [[{ maxId }]] = await pool.query('SELECT COALESCE(MAX(id), 0) AS maxId FROM pedidos');
   const nextId = maxId + 1;
   await pool.query(
     'INSERT INTO pedidos (id, id_cliente, id_producto, cantidad, fecha) VALUES (?, ?, ?, ?, NOW())',
-    [nextId, id_cliente, id_producto, cantidad]
+    [nextId, id_cliente, id_producto, cantidadVal]
   );
   res.redirect('/pedidos');
 });
@@ -167,9 +172,10 @@ app.get('/pedidos/editar/:id', async (req, res) => {
 
 app.post('/pedidos/editar/:id', async (req, res) => {
   const { id_cliente, id_producto, cantidad } = req.body;
+  const cantidadVal = Math.max(1, parseInt(cantidad) || 1);
   await pool.query(
     'UPDATE pedidos SET id_cliente = ?, id_producto = ?, cantidad = ? WHERE id = ?',
-    [id_cliente, id_producto, cantidad, req.params.id]
+    [id_cliente, id_producto, cantidadVal, req.params.id]
   );
   res.redirect('/pedidos');
 });

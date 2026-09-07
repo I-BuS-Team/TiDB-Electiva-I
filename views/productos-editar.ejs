@@ -5,8 +5,8 @@
 <div class="form-box">
   <form method="POST" action="/productos/editar/<%= producto.id %>">
     <input type="text" name="nombre" value="<%= producto.nombre %>" placeholder="Nombre" required><br>
-    <input type="number" step="0.01" name="precio" value="<%= producto.precio %>" placeholder="Precio" required><br>
-    <input type="number" name="stock" value="<%= producto.stock %>" placeholder="Stock" required><br>
+    <input type="number" step="0.01" min="0" name="precio" value="<%= producto.precio %>" placeholder="Precio" required><br>
+    <input type="number" min="0" name="stock" value="<%= producto.stock %>" placeholder="Stock" required><br>
     <button type="submit">Guardar cambios</button>
     <a href="/productos"><button type="button">Cancelar</button></a>
   </form>

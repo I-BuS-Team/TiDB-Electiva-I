@@ -6,7 +6,7 @@
   <form method="POST" action="/clientes/editar/<%= cliente.id %>">
     <input type="text" name="nombre" value="<%= cliente.nombre %>" placeholder="Nombre" required><br>
     <input type="email" name="email" value="<%= cliente.email %>" placeholder="Email"><br>
-    <input type="text" name="telefono" value="<%= cliente.telefono %>" placeholder="Teléfono"><br>
+    <input type="tel" name="telefono" value="<%= cliente.telefono %>" placeholder="Teléfono" pattern="[0-9]+" min="0" oninput="if(this.value < 0) this.value = '';"><br>
     <button type="submit">Guardar cambios</button>
     <a href="/clientes"><button type="button">Cancelar</button></a>
   </form>
