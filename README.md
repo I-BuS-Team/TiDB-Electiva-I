@@ -9,17 +9,23 @@ Aplicación web básica en Node.js + Express para probar una base de datos TiDB 
 - Laura Daniela Guevara Uribe
 - Luis Esteban Robelto Zarabanda
 - Laura Valentina Urueña Bejarano
-- Sergio Alejandro Gómez Zapata
+- Sergio Alexander Gómez Zapata
 
 
 ## Requisitos
 
 - Node.js instalado (https://nodejs.org)
-- Una base de datos ya creada en TiDB Cloud con las tablas `clientes`, `productos` y `pedidos`
 
 ## Instalación
 
-1. Descarga o clona este proyecto.
+1. **Obtener el proyecto:**
+   - **Opción A (usando Git):** Abre una terminal y clona el repositorio ejecutando:
+     ```bash
+     git clone https://github.com/laurva16/TiDB-Electiva-I.git
+     cd TiDB-Electiva-I
+     ```
+   - **Opción B (sin Git):** Haz clic en el botón **Code** arriba a la derecha en GitHub, selecciona **Download ZIP**, descomprime el archivo en tu equipo y entra a la carpeta extraída.
+
 2. Abre una terminal en la carpeta del proyecto y ejecuta:
 
    ```
@@ -71,9 +77,46 @@ Luego abre en el navegador: http://localhost:3000
 
 ## Funcionalidad
 
-- **Clientes**: ver, agregar y eliminar clientes.
-- **Productos**: ver, agregar y eliminar productos.
-- **Pedidos**: ver, agregar y eliminar pedidos, relacionando cliente y producto.
+- **Clientes**: ver, agregar, actualizar y eliminar clientes.
+- **Productos**: ver, agregar, actualizar y eliminar productos.
+- **Pedidos**: ver, agregar, actualizar y eliminar pedidos, relacionando cliente y producto.
+
+## Paso a paso para comprobar desde MySQL Workbench
+
+Si deseas verificar la base de datos o ejecutar consultas directamente desde **MySQL Workbench**, sigue estos pasos para configurar la conexión SSL con TiDB Cloud:
+
+1. **Crear una nueva conexión:**
+   - Abre MySQL Workbench y haz clic en el icono **`+`** al lado de *MySQL Connections*.
+
+2. **Configurar la pestaña Parameters:**
+   - **Connection Name:** Asigna un nombre a la conexión (ej. `Tienda TiDB`).
+   - **Connection Method:** Selecciona `Standard (TCP/IP)`.
+   - **Hostname:** Ingresa el host de TiDB Cloud (ej. `gateway01.sa-east-1.prod.aws.tidbcloud.com`).
+   - **Port:** Indica el puerto `4000`.
+   - **Username:** Ingresa tu usuario de TiDB (ej. `2b4HSKBkURw7HRZ.root`).
+   - **Password:** Haz clic en **Store in Vault...** e ingresa la contraseña correspondiente.
+
+   ![Parameters](docs/parametros.png)
+
+3. **Configurar la conexión SSL (Pestaña SSL):**
+   - Ve a la pestaña **SSL** en la parte superior.
+   - En la opción **Use SSL**, selecciona `Require`.
+   - En el campo **SSL CA File**, haz clic en el botón de búsqueda `...` y selecciona el archivo `ca-cert.pem`.
+
+   ![SSL](docs/archivo-ssl.png)
+
+4. **Probar y guardar la conexión:**
+   - Haz clic en el botón **Test Connection** abajo a la derecha. Si todo está correcto, aparecerá un mensaje de conexión exitosa.
+   - Haz clic en **OK** para guardar la conexión.
+
+5. **Verificar las tablas:**
+   - Abre la conexión recién creada y ejecuta consultas para comprobar los datos:
+     ```sql
+     USE tienda;
+     SELECT * FROM clientes;
+     SELECT * FROM productos;
+     SELECT * FROM pedidos;
+     ```
 
 ## Dificultades durante el desarrollo
 
