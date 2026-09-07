@@ -14,7 +14,7 @@
         <option value="<%= p.id %>" <%= p.id === pedido.id_producto ? 'selected' : '' %>><%= p.nombre %></option>
       <% }) %>
     </select><br>
-    <input type="number" name="cantidad" value="<%= pedido.cantidad %>" placeholder="Cantidad" required><br>
+    <input type="number" min="1" name="cantidad" value="<%= pedido.cantidad %>" placeholder="Cantidad" required><br>
     <button type="submit">Guardar cambios</button>
     <a href="/pedidos"><button type="button">Cancelar</button></a>
   </form>

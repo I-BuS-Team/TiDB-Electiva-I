@@ -12,7 +12,7 @@
     <td><%= c.nombre %></td>
     <td><%= c.email %></td>
     <td><%= c.telefono %></td>
-    <td><%= c.fecha_registro %></td>
+    <td><%= formatFecha(c.fecha_registro) %></td>
     <td>
       <a href="/clientes/editar/<%= c.id %>"><button type="button">Editar</button></a>
       <form class="inline" method="POST" action="/clientes/eliminar/<%= c.id %>">
@@ -28,7 +28,7 @@
   <form method="POST" action="/clientes">
     <input type="text" name="nombre" placeholder="Nombre" required>
     <input type="email" name="email" placeholder="Email">
-    <input type="text" name="telefono" placeholder="Teléfono">
+    <input type="tel" name="telefono" placeholder="Teléfono" pattern="[0-9]+" min="0" oninput="if(this.value < 0) this.value = '';">
     <button type="submit">Guardar</button>
   </form>
 </div>
