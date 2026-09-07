@@ -44,9 +44,11 @@ app.get('/clientes', async (req, res) => {
 
 app.post('/clientes', async (req, res) => {
   const { nombre, email, telefono } = req.body;
+  const [[{ maxId }]] = await pool.query('SELECT COALESCE(MAX(id), 0) AS maxId FROM clientes');
+  const nextId = maxId + 1;
   await pool.query(
-    'INSERT INTO clientes (nombre, email, telefono, fecha_registro) VALUES (?, ?, ?, NOW())',
-    [nombre, email, telefono]
+    'INSERT INTO clientes (id, nombre, email, telefono, fecha_registro) VALUES (?, ?, ?, ?, NOW())',
+    [nextId, nombre, email, telefono]
   );
   res.redirect('/clientes');
 });
@@ -85,9 +87,11 @@ app.get('/productos', async (req, res) => {
 
 app.post('/productos', async (req, res) => {
   const { nombre, precio, stock } = req.body;
+  const [[{ maxId }]] = await pool.query('SELECT COALESCE(MAX(id), 0) AS maxId FROM productos');
+  const nextId = maxId + 1;
   await pool.query(
-    'INSERT INTO productos (nombre, precio, stock) VALUES (?, ?, ?)',
-    [nombre, precio, stock]
+    'INSERT INTO productos (id, nombre, precio, stock) VALUES (?, ?, ?, ?)',
+    [nextId, nombre, precio, stock]
   );
   res.redirect('/productos');
 });
@@ -135,9 +139,11 @@ app.get('/pedidos', async (req, res) => {
 
 app.post('/pedidos', async (req, res) => {
   const { id_cliente, id_producto, cantidad } = req.body;
+  const [[{ maxId }]] = await pool.query('SELECT COALESCE(MAX(id), 0) AS maxId FROM pedidos');
+  const nextId = maxId + 1;
   await pool.query(
-    'INSERT INTO pedidos (id_cliente, id_producto, cantidad, fecha) VALUES (?, ?, ?, NOW())',
-    [id_cliente, id_producto, cantidad]
+    'INSERT INTO pedidos (id, id_cliente, id_producto, cantidad, fecha) VALUES (?, ?, ?, ?, NOW())',
+    [nextId, id_cliente, id_producto, cantidad]
   );
   res.redirect('/pedidos');
 });
