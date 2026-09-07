@@ -103,8 +103,6 @@ Si deseas verificar la base de datos o ejecutar consultas directamente desde **M
    - En la opción **Use SSL**, selecciona `Require`.
    - En el campo **SSL CA File**, haz clic en el botón de búsqueda `...` y selecciona el archivo `ca-cert.pem`.
 
-   ![SSL](docs/archivo-ssl.png)
-
 4. **Probar y guardar la conexión:**
    - Haz clic en el botón **Test Connection** abajo a la derecha. Si todo está correcto, aparecerá un mensaje de conexión exitosa.
    - Haz clic en **OK** para guardar la conexión.
