@@ -9,6 +9,28 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+// Middleware para formatear fechas de manera entendible en las vistas en zona horaria local
+app.use((req, res, next) => {
+  res.locals.formatFecha = (fecha) => {
+    if (!fecha) return '-';
+    let d = fecha instanceof Date ? fecha : new Date(fecha);
+    if (typeof fecha === 'string' && !fecha.endsWith('Z') && !fecha.includes('+')) {
+      d = new Date(fecha.replace(' ', 'T') + 'Z');
+    }
+    if (isNaN(d.getTime())) return fecha;
+    return d.toLocaleString('es-CO', {
+      timeZone: 'America/Bogota',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+  next();
+});
+
 // ---------- INICIO ----------
 app.get('/', (req, res) => {
   res.render('index');
@@ -23,7 +45,7 @@ app.get('/clientes', async (req, res) => {
 app.post('/clientes', async (req, res) => {
   const { nombre, email, telefono } = req.body;
   await pool.query(
-    'INSERT INTO clientes (nombre, email, telefono) VALUES (?, ?, ?)',
+    'INSERT INTO clientes (nombre, email, telefono, fecha_registro) VALUES (?, ?, ?, NOW())',
     [nombre, email, telefono]
   );
   res.redirect('/clientes');
@@ -102,7 +124,7 @@ app.get('/pedidos', async (req, res) => {
 app.post('/pedidos', async (req, res) => {
   const { id_cliente, id_producto, cantidad } = req.body;
   await pool.query(
-    'INSERT INTO pedidos (id_cliente, id_producto, cantidad) VALUES (?, ?, ?)',
+    'INSERT INTO pedidos (id_cliente, id_producto, cantidad, fecha) VALUES (?, ?, ?, NOW())',
     [id_cliente, id_producto, cantidad]
   );
   res.redirect('/pedidos');

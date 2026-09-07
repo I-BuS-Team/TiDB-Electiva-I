@@ -12,7 +12,7 @@
     <td><%= c.nombre %></td>
     <td><%= c.email %></td>
     <td><%= c.telefono %></td>
-    <td><%= c.fecha_registro %></td>
+    <td><%= formatFecha(c.fecha_registro) %></td>
     <td>
       <a href="/clientes/editar/<%= c.id %>"><button type="button">Editar</button></a>
       <form class="inline" method="POST" action="/clientes/eliminar/<%= c.id %>">

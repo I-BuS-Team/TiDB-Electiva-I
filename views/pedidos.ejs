@@ -12,7 +12,7 @@
     <td><%= p.cliente %></td>
     <td><%= p.producto %></td>
     <td><%= p.cantidad %></td>
-    <td><%= p.fecha %></td>
+    <td><%= formatFecha(p.fecha) %></td>
     <td>
       <a href="/pedidos/editar/<%= p.id %>"><button type="button">Editar</button></a>
       <form class="inline" method="POST" action="/pedidos/eliminar/<%= p.id %>">
